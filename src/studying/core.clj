@@ -57,5 +57,15 @@
 (defn quantidade-estudantes-no-quinto-ano
   [estudantes]
   (count (filter esta-no-quinto-ano? estudantes)))
+;; alternativa: (count (filter #(= 5 %) estudantes))
 
-(quantidade-estudantes-no-quinto-ano [5,1,3,4,5])
+(quantidade-estudantes-no-quinto-ano [5 1 3 4 5])
+
+;; Desafio 2: Crie uma função que recebe um vetor de idades e retorna a soma
+;; Exemplo: (soma-idade [5 10 5) ; deve retornar 20
+
+(defn soma-idade
+  [idade-alunos]
+  (reduce + idade-alunos))
+
+(soma-idade [5 10 5])
