@@ -1,6 +1,6 @@
 (ns studying.core)
 
-; Estudando let e condicional
+;; Estudando let e condicional
 
 (defn taxa-entrega
   [valor-pedido]
@@ -13,12 +13,12 @@
         frete-medio
         frete-gratis))))
 
-;------------------------- || ------------------------------------
+;;------------------------- || ------------------------------------
 
 
-; Estudando Higher Order Function
+;; Estudando Higher Order Function
 
-; 1. Recebendo função como parâmetro
+;; 1. Recebendo função como parâmetro
 (defn consulta-taxa-atual
   []
   0.2)
@@ -31,14 +31,31 @@
 
 (imposto-retido consulta-taxa-atual 1000)
 
-; 2. Retornando função como parâmetro
+;; 2. Retornando função como parâmetro
 
 (defn minha-taxa-padrao
   []
-  consulta-taxa-atual) ; Retorna referência para a função
+  consulta-taxa-atual) ;; Retorna referência para a função
 
-(minha-taxa-padrao) ; Se adicionar outro parênteses vai executar essa referência ((minha-taxa-padrao))
+(minha-taxa-padrao) ;; Se adicionar outro parênteses vai executar essa referência ((minha-taxa-padrao))
 
 (imposto-retido (minha-taxa-padrao) 2000)
-; chama o imposto retido, usando a referência retornada pelo minha-taxa-padrao ele executa essa referência
-;  e passa 2000 como parâmetro também
+;; chama o imposto retido, usando a referência retornada pelo minha-taxa-padrao ele executa essa referência
+;;  e passa 2000 como parâmetro também
+
+;;------------------------- || ------------------------------------
+
+;; Vetor de estudantes contendo número representando o número da série
+;; Exemplo: [5 6 6] ; 1 estudante no quinto e 2 no sexto
+
+;; Desafio 1: criar uma função que recebe o vetor como entrada e retorna a quantidade de estudantes que estão no quinto ano
+
+(defn esta-no-quinto-ano?
+  [ano]
+  (= ano 5))
+
+(defn quantidade-estudantes-no-quinto-ano
+  [estudantes]
+  (count (filter esta-no-quinto-ano? estudantes)))
+
+(quantidade-estudantes-no-quinto-ano [5,1,3,4,5])
