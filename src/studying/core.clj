@@ -69,3 +69,25 @@
   (reduce + idade-alunos))
 
 (soma-idade [5 10 5])
+
+;; Desafio 3: Crie uma função que recebe um vetor de nomes e retorna o tamanho médio
+;; Exemplo: (tamanho-medio-nome ["Igor" "Maria"]) ; deve retornar 4,5
+
+(defn tamanho-medio-nome
+  [nomes]
+  (/ (reduce + (map count nomes)) (count nomes)))
+
+(tamanho-medio-nome ["Igor" "Maria"])
+
+;; Desafio 4: Criar função que retorna tamanho médio dos nomes ignorando nomes com 3 ou menos chars
+
+(defn maior-que-tamanho-minimo?
+  [nome]
+  (> (count nome) 3))
+
+(defn tamanho-medio-nome-com-validacao
+  [nomes]
+  (let [nomes-validos (filter maior-que-tamanho-minimo? nomes)]
+    (/ (reduce + (map count nomes-validos)) (count nomes-validos))))
+
+(tamanho-medio-nome-com-validacao ["Igor" "Maria" "Jo"])
