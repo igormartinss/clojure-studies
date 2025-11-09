@@ -1,5 +1,5 @@
 (ns studying.core
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :refer [upper-case join]]))
 
 ;; Estudando let e condicional
 
@@ -123,8 +123,18 @@
 
 (defn nomes-disciplinas-restantes
   [disciplinas semestre-atual]
-  (str/join ", " (map str/upper-case
-                 (map :nome (
-                              filter #(>= (:semestre %) semestre-atual) disciplinas)))))
+  (join ", " (map upper-case
+    (map :nome
+       (filter #(>= (:semestre %) semestre-atual) disciplinas)))))
+
+;; Alternativa usando Threading
+(defn nomes-disciplinas-restantes-threading
+  [disciplinas semestre-atual]
+  (->> disciplinas
+       (filter #(>= (:semestre %) semestre-atual))
+       (map :nome)
+       (join ", ")
+       (upper-case)))
 
 (nomes-disciplinas-restantes (disciplinas) 2)
+(nomes-disciplinas-restantes-threading (disciplinas) 2)
