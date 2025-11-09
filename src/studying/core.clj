@@ -1,4 +1,5 @@
-(ns studying.core)
+(ns studying.core
+  (:require [clojure.string :as str]))
 
 ;; Estudando let e condicional
 
@@ -46,7 +47,7 @@
 ;;------------------------- || ------------------------------------
 
 ;; Vetor de estudantes contendo número representando o número da série
-;; Exemplo: [5 6 6] ; 1 estudante no quinto e 2 no sexto
+;; Exemplo: [5 6 6] ;;  1 estudante no quinto e 2 no sexto
 
 ;; Desafio 1: criar uma função que recebe o vetor como entrada e retorna a quantidade de estudantes que estão no quinto ano
 
@@ -62,7 +63,7 @@
 (quantidade-estudantes-no-quinto-ano [5 1 3 4 5])
 
 ;; Desafio 2: Crie uma função que recebe um vetor de idades e retorna a soma
-;; Exemplo: (soma-idade [5 10 5) ; deve retornar 20
+;; Exemplo: (soma-idade [5 10 5) ;;  deve retornar 20
 
 (defn soma-idade
   [idade-alunos]
@@ -71,7 +72,7 @@
 (soma-idade [5 10 5])
 
 ;; Desafio 3: Crie uma função que recebe um vetor de nomes e retorna o tamanho médio
-;; Exemplo: (tamanho-medio-nome ["Igor" "Maria"]) ; deve retornar 4,5
+;; Exemplo: (tamanho-medio-nome ["Igor" "Maria"]) ;;  deve retornar 4,5
 
 (defn tamanho-medio-nome
   [nomes]
@@ -91,3 +92,39 @@
     (/ (reduce + (map count nomes-validos)) (count nomes-validos))))
 
 (tamanho-medio-nome-com-validacao ["Igor" "Maria" "Jo"])
+
+;;------------------------- || ------------------------------------
+;; MAPAS
+
+(defn compras
+  []
+  {:tomate {:quantidade 5 :preco 5}
+   :arroz {:quantidade 1 :preco 15 }}
+  )
+
+(get (compras) :tomate)
+
+;; Desafio: precisamos criar uma função que, dada um conjunto (vetor)
+;; de disciplinas e o semestre do discente, deve:
+;; filtrar a lista para exibir disciplinas restantes (que sejam do semestre atual ou superior)
+;;  transformar nome da disciplina para maiúsculo e descartar demais informações
+;; criar uma String concatenando o nome de todas as disciplinas filtradas
+;;  Exemplo de entrada:
+;; [nome "Estrutura de dados" semestre 2)
+;; {:nome "Algoritmos" semestre 1)
+;; (nome "Inteligência Artificiol" semestre 3}] 2
+;; Saida esperada: "ESTRUTURA DE DADOS, INTELIGÊNCIA ARTIFICIAL
+
+(defn disciplinas
+  []
+  [{:nome "Estrutura de dados" :semestre 2}
+   {:nome "Algoritmos" :semestre 1}
+   {:nome "Inteligência Artificial" :semestre 3}])
+
+(defn nomes-disciplinas-restantes
+  [disciplinas semestre-atual]
+  (str/join ", " (map str/upper-case
+                 (map :nome (
+                              filter #(>= (:semestre %) semestre-atual) disciplinas)))))
+
+(nomes-disciplinas-restantes (disciplinas) 2)
